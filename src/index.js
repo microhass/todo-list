@@ -1,21 +1,17 @@
 import './style.css';
+import icon from './../images/icon.png';
 
 const taskList = document.querySelector('.list');
 
 const tasks = [
   {
     index: 1,
-    description: 'Lorem ipsum adipisicing elit.',
+    description: 'Wash the dishes',
     completed: false,
   },
   {
     index: 2,
-    description: 'Lorem ipsum dolor, sit amet elit. Harum!',
-    completed: true,
-  },
-  {
-    index: 3,
-    description: 'Lorem ipsum adipisicing elit.',
+    description: 'Complete To Do list projest',
     completed: false,
   },
 ];
@@ -24,12 +20,12 @@ const renderTasks = () => {
   const tasksMarkup = tasks
     .map(
       (task) => `
-  <li id=${task.index}>
+  <li class='task' id=${task.index}>
     <input type="checkbox" ${
       task.completed && 'checked'
     } name="check" id="check" />
     <span>${task.description}</span>
-    <img src="./images/icon.png" alt="drag icon" />
+    <img src="${icon}" alt="drag icon" />
   </li>
 `
     )

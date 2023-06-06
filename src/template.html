@@ -7,10 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <link
-      rel="shortcut icon"
-      href="./images/favicon.png"
-      type="image/x-icon"
+    <link rel="shortcut icon"
+    href=<%=require("./../images/favicon.png")%> type="image/x-icon"
     />
     <title>Todo List</title>
   </head>
@@ -18,14 +16,17 @@
     <main>
       <div class="title">
         <h1>Today's To Do</h1>
-        <img src="./images/refresh.svg" alt="" />
+        <img src= <%=require("./../images/refresh.svg")%>
+        alt="refresh" />
       </div>
       <ul class="list">
         <li>
           <p>Add to your list...</p>
-          <img src="./images/submit.png" alt="submit">
+          <img src=<%=require("./../images/submit.png")%> alt="submit"
+          />
         </li>
       </ul>
+      <button id="clear" type="button">Clear all completed</button>
     </main>
   </body>
 </html>
