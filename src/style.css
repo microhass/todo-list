@@ -1,3 +1,72 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid aliceblue; */
+}
+
 body {
-    background-color: bisque;
+  background-color: #121212;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  padding-top: 10vh;
+  min-height: 100vh;
+}
+
+main {
+  background-color: #292929;
+  height: fit-content;
+  padding: 5% 0 1% 0;
+  width: 80vw;
+  margin-bottom: auto;
+  border-radius: 8px;
+}
+
+main .title {
+  text-transform: capitalize;
+  margin-bottom: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 1.8vw;
+}
+
+main ul {
+  /* display: grid; */
+  background-color: #121212;
+  border-top: 2px solid #121212;
+}
+
+ul li {
+  list-style-type: none;
+  padding: 20px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #292929;
+  margin-bottom: 2px;
+}
+
+li span {
+  margin-right: auto;
+  margin-left: 18px;
+}
+
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  outline: 1px solid #121212;
+  cursor: pointer;
+}
+
+img {
+  cursor: move;
+  width: 20px;
+}
+
+p {
+  font-style: italic;
 }
