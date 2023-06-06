@@ -1,13 +1,37 @@
-import _ from 'lodash';
 import './style.css';
+import icon from '../images/icon.png';
 
-function component() {
-  const element = document.createElement('div');
+const taskList = document.querySelector('.list');
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+const tasks = [
+  {
+    index: 1,
+    description: 'Wash the dishes',
+    completed: false,
+  },
+  {
+    index: 2,
+    description: 'Complete To Do list projest',
+    completed: false,
+  },
+];
 
-  return element;
-}
+const renderTasks = () => {
+  const tasksMarkup = tasks
+    .map(
+      (task) => `
+  <li class='task' id=${task.index}>
+    <input type="checkbox" ${
+  task.completed && 'checked'
+} name="check" id="check" />
+    <span>${task.description}</span>
+    <img src="${icon}" alt="drag icon" />
+  </li>
+`,
+    )
+    .join('');
 
-document.body.appendChild(component());
+  taskList.insertAdjacentHTML('beforeend', tasksMarkup);
+};
+
+window.addEventListener('DOMContentLoaded', renderTasks);
