@@ -1,5 +1,5 @@
 import './style.css';
-import icon from './../images/icon.png';
+import icon from '../images/icon.png';
 
 const taskList = document.querySelector('.list');
 
@@ -22,12 +22,12 @@ const renderTasks = () => {
       (task) => `
   <li class='task' id=${task.index}>
     <input type="checkbox" ${
-      task.completed && 'checked'
-    } name="check" id="check" />
+  task.completed && 'checked'
+} name="check" id="check" />
     <span>${task.description}</span>
     <img src="${icon}" alt="drag icon" />
   </li>
-`
+`,
     )
     .join('');
 
