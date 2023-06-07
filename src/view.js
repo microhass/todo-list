@@ -35,17 +35,10 @@ export const clearField = (inputEl) => {
 };
 
 export const markCompleted = (checkBox, tasks) => {
-  // Strike through the task
-  const completedTodo = checkBox.nextElementSibling.firstElementChild;
-
-  checkBox.checked
-    ? completedTodo.classList.add('completed')
-    : completedTodo.classList.remove('completed');
-
-  // Mark task in list as completed
-  const taskId = completedTodo.closest('li').id;
+  const taskId = checkBox.closest('li').id;
   tasks.forEach((task) => {
     if (task.index !== +taskId) return;
+    // completed set to true or false based on checkbox status
     task.completed = checkBox.checked;
   });
 };

@@ -74,6 +74,11 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
+input[type='checkbox']:checked + form input {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
 img {
   width: 20px;
   cursor: pointer;
@@ -122,9 +127,4 @@ input::placeholder {
   cursor: pointer;
   text-decoration: underline;
   background-color: #363636;
-}
-
-.completed {
-  text-decoration: line-through;
-  opacity: 0.4;
 }
