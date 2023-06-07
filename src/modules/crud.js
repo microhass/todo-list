@@ -24,3 +24,14 @@ export const updateTask = (index, desc, tasks) => {
   });
   return newTasks;
 };
+
+export const removeTask = (index, tasks) => {
+  // Remove completed
+  const newTasks = [...tasks].filter((task) => task.index !== index);
+
+  // Update indices
+  newTasks.forEach((task, index) => {
+    task.index = index;
+  });
+  return newTasks;
+};

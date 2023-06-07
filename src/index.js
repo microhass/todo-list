@@ -6,6 +6,7 @@ import './style.css';
 const todoForm = document.querySelector('#todo-form');
 const listContainer = document.querySelector('.list');
 const clearBtn = document.querySelector('#clear');
+const todoFormSubmitBtn = document.querySelector('#todo-form + img');
 
 let tasks;
 
@@ -15,15 +16,22 @@ window.addEventListener('DOMContentLoaded', () => {
   // view.renderTasks.bind(null, tasks);
 });
 
-// Create Todo
-todoForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
+  if (newTodo.value.trim() === '') return;
   tasks = myTodos.createTask(newTodo.value, tasks);
   view.renderTasks(tasks);
   view.clearField(newTodo);
   storage.saveTasks(tasks);
+};
+
+// Create Todo
+todoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  createTodo();
 });
+
+todoFormSubmitBtn.addEventListener('click', createTodo);
 
 // Mark task as completed
 listContainer.addEventListener('click', (e) => {
@@ -41,9 +49,17 @@ listContainer.addEventListener('click', (e) => {
     // Separate function to prevent adding a listener every time
     const listener = () => {
       const newDesc = inputDesc.value;
-      tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+
+      if (newDesc.trim() === '') {
+        tasks = myTodos.removeTask(+currTask.id, tasks);
+        view.renderTasks(tasks);
+      } else {
+        tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+      }
+
       view.focusUpdate(currTask, 'blur');
       storage.saveTasks(tasks);
+
       return inputDesc.removeEventListener('blur', listener);
     };
 
