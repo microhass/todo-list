@@ -1,4 +1,4 @@
-export const addTask = (description, tasks) => {
+export const createTask = (description, tasks) => {
   const newTasks = [
     ...tasks,
     { index: tasks.length, description, completed: false },
@@ -6,7 +6,7 @@ export const addTask = (description, tasks) => {
   return newTasks;
 };
 
-export const removeTask = (description, tasks) => {
+export const removeTask = (index, tasks) => {
   const newTasks = [
     ...tasks,
     { index: tasks.length, description, completed: false },

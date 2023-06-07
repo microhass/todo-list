@@ -32,3 +32,11 @@ export const clearField = (inputEl) => {
   inputEl.value = '';
   inputEl.blur();
 };
+
+export const markCompleted = (checkBox) => {
+    const completedTodo =
+      checkBox.nextElementSibling.firstElementChild;
+    checkBox.checked
+      ? completedTodo.classList.add('completed')
+      : completedTodo.classList.remove('completed');
+}
