@@ -33,10 +33,18 @@ export const clearField = (inputEl) => {
   inputEl.blur();
 };
 
-export const markCompleted = (checkBox) => {
-    const completedTodo =
-      checkBox.nextElementSibling.firstElementChild;
-    checkBox.checked
-      ? completedTodo.classList.add('completed')
-      : completedTodo.classList.remove('completed');
-}
+export const markCompleted = (checkBox, tasks) => {
+  // Strike through the task
+  const completedTodo = checkBox.nextElementSibling.firstElementChild;
+
+  checkBox.checked
+    ? completedTodo.classList.add('completed')
+    : completedTodo.classList.remove('completed');
+
+  // Mark task in list as completed
+  const taskId = completedTodo.closest('li').id;
+  tasks.forEach((task) => {
+    if (task.index !== +taskId) return;
+    task.completed = checkBox.checked;
+  });
+};

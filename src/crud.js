@@ -6,10 +6,11 @@ export const createTask = (description, tasks) => {
   return newTasks;
 };
 
-export const removeTask = (index, tasks) => {
-  const newTasks = [
-    ...tasks,
-    { index: tasks.length, description, completed: false },
-  ];
+export const deleteTasks = (tasks) => {
+  // Remove completed
+  const newTasks = [...tasks].filter((task) => !task.completed);
+
+  // Update indices
+  newTasks.forEach((task, index) => (task.index = index));
   return newTasks;
 };
