@@ -11,7 +11,9 @@ export const deleteTasks = (tasks) => {
   const newTasks = [...tasks].filter((task) => !task.completed);
 
   // Update indices
-  newTasks.forEach((task, index) => (task.index = index));
+  newTasks.forEach((task, index) => {
+    task.index = index;
+  });
   return newTasks;
 };
 

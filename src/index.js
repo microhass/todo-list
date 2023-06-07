@@ -1,6 +1,6 @@
-import * as view from './view.js';
-import * as myTodos from './crud.js';
-import * as storage from './storage.js';
+import * as view from './modules/view.js';
+import * as myTodos from './modules/crud.js';
+import * as storage from './modules/storage.js';
 import './style.css';
 
 const todoForm = document.querySelector('#todo-form');
@@ -27,31 +27,27 @@ todoForm.addEventListener('submit', (e) => {
 
 // Mark task as completed
 listContainer.addEventListener('click', (e) => {
-  switch (e.target.name) {
-    case 'check':
-      view.markCompleted(e.target, tasks);
-      storage.saveTasks(tasks)
-      break;
+  if (e.target.name === 'check') {
+    view.markCompleted(e.target, tasks);
+    storage.saveTasks(tasks);
+    return;
+  }
 
-    case 'task':
-      const inputDesc = e.target;
-      const currTask = inputDesc.closest('li');
-      view.focusUpdate(currTask, 'focus');
+  if (e.target.name === 'task') {
+    const inputDesc = e.target;
+    const currTask = inputDesc.closest('li');
+    view.focusUpdate(currTask, 'focus');
 
-      // Separate function to prevent adding a listener every time
-      const listener = () => {
-        const newDesc = inputDesc.value;
-        tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
-        view.focusUpdate(currTask, 'blur');
-        storage.saveTasks(tasks);
-        return inputDesc.removeEventListener('blur', listener);
-      };
+    // Separate function to prevent adding a listener every time
+    const listener = () => {
+      const newDesc = inputDesc.value;
+      tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+      view.focusUpdate(currTask, 'blur');
+      storage.saveTasks(tasks);
+      return inputDesc.removeEventListener('blur', listener);
+    };
 
-      inputDesc.addEventListener('blur', listener);
-      break;
-
-    default:
-      break;
+    inputDesc.addEventListener('blur', listener);
   }
 });
 

@@ -1,5 +1,5 @@
-import dragIcon from '../images/icon.png';
-import trashIcon from '../images/trash.svg';
+import dragIcon from '../../images/icon.png';
+import trashIcon from '../../images/trash.svg';
 
 const taskList = document.querySelector('.list div');
 
@@ -9,8 +9,8 @@ export const renderTasks = (tasks) => {
       (task) => `
   <li class='task' id=${task.index}>
     <input type="checkbox" ${
-      task.completed && 'checked'
-    } name="check" id="check" />
+  task.completed && 'checked'
+} name="check" id="check" />
     <form id="tasks">
       <input
         type="text"
@@ -21,7 +21,7 @@ export const renderTasks = (tasks) => {
     </form>
     <img src="${dragIcon}" alt="drag icon" />
   </li>
-`
+`,
     )
     .join('');
 
