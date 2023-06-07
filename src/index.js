@@ -13,7 +13,6 @@ let tasks;
 window.addEventListener('DOMContentLoaded', () => {
   tasks = storage.getTasks();
   view.renderTasks(tasks);
-  // view.renderTasks.bind(null, tasks);
 });
 
 const createTodo = () => {

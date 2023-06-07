@@ -1,7 +1,7 @@
 export const createTask = (description, tasks) => {
   const newTasks = [
     ...tasks,
-    { index: tasks.length, description, completed: false },
+    { index: tasks.length + 1, description, completed: false },
   ];
   return newTasks;
 };
@@ -12,7 +12,7 @@ export const deleteTasks = (tasks) => {
 
   // Update indices
   newTasks.forEach((task, index) => {
-    task.index = index;
+    task.index = index + 1;
   });
   return newTasks;
 };
@@ -31,7 +31,7 @@ export const removeTask = (index, tasks) => {
 
   // Update indices
   newTasks.forEach((task, index) => {
-    task.index = index;
+    task.index = index + 1;
   });
   return newTasks;
 };
