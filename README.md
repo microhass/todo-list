@@ -65,7 +65,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-<a href="https://microhass.github.io/todo-list/"> See Project 🚀</a>
+<a href="https://microhass-todo.netlify.app/"> See Project 🚀</a>
 
 <!-- GETTING STARTED -->
 
