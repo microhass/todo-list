@@ -24,12 +24,34 @@ todoForm.addEventListener('submit', (e) => {
 
 // Mark task as completed
 listContainer.addEventListener('click', (e) => {
-  if (e.target.name !== 'check') return;
-  view.markCompleted(e.target, tasks);
+  switch (e.target.name) {
+    case 'check':
+      view.markCompleted(e.target, tasks);
+      break;
+
+    case 'task':
+      const inputDesc = e.target;
+      const currTask = inputDesc.closest('li');
+      view.focusUpdate(currTask, 'focus');
+
+      // Separate function to prevent adding a listener every time
+      const listener = () => {
+        const newDesc = inputDesc.value;
+        tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+        view.focusUpdate(currTask, 'blur');
+        return inputDesc.removeEventListener('blur', listener);
+      };
+
+      inputDesc.addEventListener('blur', listener);
+      break;
+
+    default:
+      break;
+  }
 });
 
 // Clear completed tasks
 clearBtn.addEventListener('click', () => {
-  tasks = myTodos.deleteTasks(tasks)
+  tasks = myTodos.deleteTasks(tasks);
   view.renderTasks(tasks);
 });

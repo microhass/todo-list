@@ -79,6 +79,10 @@ img {
   cursor: pointer;
 }
 
+img:hover {
+  filter: brightness(0) invert(1);
+}
+
 .task img {
   cursor: move;
 }

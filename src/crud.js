@@ -14,3 +14,11 @@ export const deleteTasks = (tasks) => {
   newTasks.forEach((task, index) => (task.index = index));
   return newTasks;
 };
+
+export const updateTask = (index, desc, tasks) => {
+  const newTasks = [...tasks].map((task) => {
+    if (task.index === index) task.description = desc;
+    return task;
+  });
+  return newTasks;
+};

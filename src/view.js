@@ -1,4 +1,5 @@
-import icon from '../images/icon.png';
+import dragIcon from '../images/icon.png';
+import trashIcon from '../images/trash.svg';
 
 const taskList = document.querySelector('.list div');
 
@@ -18,7 +19,7 @@ export const renderTasks = (tasks) => {
         value="${task.description}"
       />
     </form>
-    <img src="${icon}" alt="drag icon" />
+    <img src="${dragIcon}" alt="drag icon" />
   </li>
 `
     )
@@ -47,4 +48,15 @@ export const markCompleted = (checkBox, tasks) => {
     if (task.index !== +taskId) return;
     task.completed = checkBox.checked;
   });
+};
+
+export const focusUpdate = (currTask, state) => {
+  const focusIcon = currTask.lastElementChild;
+  if (state === 'focus') {
+    focusIcon.src = trashIcon;
+    focusIcon.style.cursor = 'pointer';
+  } else {
+    focusIcon.src = dragIcon;
+    focusIcon.style.cursor = 'move';
+  }
 };
