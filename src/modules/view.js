@@ -47,6 +47,7 @@ export const focusUpdate = (currTask, state) => {
   const focusIcon = currTask.lastElementChild;
   if (state === 'focus') {
     focusIcon.src = trashIcon;
+    focusIcon.title = 'Delete todo';
     focusIcon.style.cursor = 'pointer';
   } else {
     focusIcon.src = dragIcon;

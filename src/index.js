@@ -10,11 +10,6 @@ const todoFormSubmitBtn = document.querySelector('#todo-form + img');
 
 let tasks;
 
-window.addEventListener('DOMContentLoaded', () => {
-  tasks = storage.getTasks();
-  view.renderTasks(tasks);
-});
-
 const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
   if (newTodo.value.trim() === '') return;
@@ -23,6 +18,50 @@ const createTodo = () => {
   view.clearField(newTodo);
   storage.saveTasks(tasks);
 };
+
+// Handle task editing functionality
+const taskClickHandler = (e) => {
+  const inputDesc = e.target;
+  const currTask = inputDesc.closest('li');
+  const taskForm = currTask.querySelector('form');
+  view.focusUpdate(currTask, 'focus');
+
+  // Separate function to prevent adding a listener every time
+  const taskSubmitHandler = (e) => {
+    e.preventDefault();
+    const newDesc = inputDesc.value;
+
+    tasks = newDesc.trim() === ''
+      ? myTodos.removeTask(+currTask.id, tasks)
+      : myTodos.updateTask(+currTask.id, newDesc, tasks);
+
+    view.focusUpdate(currTask, 'blur');
+    view.renderTasks(tasks);
+    storage.saveTasks(tasks);
+
+    // Cleanup
+    return inputDesc.removeEventListener('blur', taskSubmitHandler);
+  };
+
+  // Revert changes if form is not submited
+  const revertChanges = () => {
+    // To allow for deleting before trashIcon is removed from DOM
+    setTimeout(() => {
+      view.renderTasks(tasks);
+
+      // Cleanup
+      return inputDesc.removeEventListener('blur', revertChanges);
+    }, 500);
+  };
+
+  taskForm.addEventListener('submit', taskSubmitHandler);
+  inputDesc.addEventListener('blur', revertChanges);
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  tasks = storage.getTasks();
+  view.renderTasks(tasks);
+});
 
 // Create Todo
 todoForm.addEventListener('submit', (e) => {
@@ -41,28 +80,16 @@ listContainer.addEventListener('click', (e) => {
   }
 
   if (e.target.name === 'task') {
-    const inputDesc = e.target;
-    const currTask = inputDesc.closest('li');
-    view.focusUpdate(currTask, 'focus');
+    taskClickHandler(e);
+    return;
+  }
 
-    // Separate function to prevent adding a listener every time
-    const listener = () => {
-      const newDesc = inputDesc.value;
-
-      if (newDesc.trim() === '') {
-        tasks = myTodos.removeTask(+currTask.id, tasks);
-        view.renderTasks(tasks);
-      } else {
-        tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
-      }
-
-      view.focusUpdate(currTask, 'blur');
-      storage.saveTasks(tasks);
-
-      return inputDesc.removeEventListener('blur', listener);
-    };
-
-    inputDesc.addEventListener('blur', listener);
+  if (e.target.title === 'Delete todo') {
+    const currTask = e.target.closest('li');
+    tasks = myTodos.removeTask(+currTask.id, tasks);
+    view.focusUpdate(currTask, 'blur');
+    view.renderTasks(tasks);
+    storage.saveTasks(tasks);
   }
 });
 
