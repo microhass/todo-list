@@ -22,12 +22,19 @@ const renderTasks = () => {
       (task) => `
   <li class='task' id=${task.index}>
     <input type="checkbox" ${
-  task.completed && 'checked'
-} name="check" id="check" />
-    <span>${task.description}</span>
+      task.completed && 'checked'
+    } name="check" id="check" />
+    <form id="tasks">
+      <input
+        type="text"
+        name="task"
+        id="task"
+        value="${task.description}"
+      />
+    </form>
     <img src="${icon}" alt="drag icon" />
   </li>
-`,
+`
     )
     .join('');
 

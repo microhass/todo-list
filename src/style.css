@@ -44,8 +44,9 @@ main ul {
 
 ul li {
   list-style-type: none;
-  padding: 20px;
-  font-size: 16px;
+  padding: 0 20px;
+  /* padding: 20px; */
+  /* font-size: 16px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,7 +54,15 @@ ul li {
   margin-bottom: 2px;
 }
 
-li span {
+li:hover {
+  background-color: #303030;
+}
+
+li:focus-within {
+  background-color: #383838;
+}
+
+li form#tasks {
   margin-right: auto;
   margin-left: 18px;
 }
@@ -74,7 +83,23 @@ img {
   cursor: move;
 }
 
-p {
+form {
+  width: 90%;
+}
+
+form input {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 20px 0;
+  font-size: 16px;
+  width: 100%;
+}
+
+input::placeholder {
+  color: inherit;
+  opacity: 1;
   font-style: italic;
 }
 
