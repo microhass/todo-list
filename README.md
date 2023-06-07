@@ -89,13 +89,19 @@ Navigate to the project directory:
  cd todo-list
 ```
 
-Open the index.html file in your web browser to view the project:
+Install the necessary dependencies by running:
 
 ```sh
- open index.html
+ npm install
 ```
 
-You can now make changes to the project as desired and push them back to the repository using Git.
+Start the local webpack dev server using the command:
+
+```sh
+  npm start
+```
+
+The website will be live at `localhost:8080/`. You can now make changes to the project as desired and push them back to the repository using Git.
 
 That's it! With these simple steps, you should be able to get up and running with the Book list project in no time. Happy coding!
 
