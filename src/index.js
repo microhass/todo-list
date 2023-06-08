@@ -1,7 +1,7 @@
 import * as view from './modules/view.js';
 import * as myTodos from './modules/crud.js';
 import * as storage from './modules/storage.js';
-import getTaskBelow from './modules/dragDrop.js';
+import * as dragDrop from './modules/dragDrop.js';
 import './style.css';
 
 const todoForm = document.querySelector('#todo-form');
@@ -11,6 +11,7 @@ const todoFormSubmitBtn = document.querySelector('#todo-form + img');
 
 let tasks;
 let dragTask;
+let taskBelow;
 
 const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
@@ -112,13 +113,21 @@ listContainer.addEventListener('dragstart', (e) => {
 listContainer.addEventListener('dragover', (e) => {
   e.preventDefault();
   const dragPosition = e.y;
-  const taskBelow = getTaskBelow(dragPosition);
-  if (!taskBelow) {
-    return listContainer.appendChild(dragTask);
-  }
-  return listContainer.insertBefore(dragTask, taskBelow);
+  taskBelow = dragDrop.getTaskBelow(dragPosition);
+
+  return !taskBelow
+    ? listContainer.appendChild(dragTask)
+    : listContainer.insertBefore(dragTask, taskBelow);
 });
 
-listContainer.addEventListener('dragend', (e) => {
+listContainer.addEventListener('dragend', () => {
   dragTask.classList.remove('dragging');
+});
+
+listContainer.addEventListener('drop', () => {
+  const droppedTaskId = dragTask.id;
+  const taskBelowId =
+    taskBelow === null ? tasks.length + 1 : taskBelow.id;
+  // console.log(tasks);
+  dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
 });
