@@ -7,10 +7,10 @@ export const renderTasks = (tasks) => {
   const tasksMarkup = tasks
     .map(
       (task) => `
-  <li class='task' id=${task.index}>
+  <li class='task' id=${task.index} draggable="true">
     <input type="checkbox" ${
-  task.completed && 'checked'
-} name="check" id="check" />
+      task.completed && 'checked'
+    } name="check" id="check" />
     <form id="tasks">
       <input
         type="text"
@@ -21,7 +21,7 @@ export const renderTasks = (tasks) => {
     </form>
     <img src="${dragIcon}" alt="drag icon" />
   </li>
-`,
+`
     )
     .join('');
 

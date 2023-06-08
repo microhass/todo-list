@@ -130,3 +130,7 @@ img:hover {
   text-decoration: underline;
   background-color: #363636;
 }
+
+.dragging {
+  opacity: 0.4;
+}

@@ -1,14 +1,16 @@
 import * as view from './modules/view.js';
 import * as myTodos from './modules/crud.js';
 import * as storage from './modules/storage.js';
+import getTaskBelow from './modules/dragDrop.js';
 import './style.css';
 
 const todoForm = document.querySelector('#todo-form');
-const listContainer = document.querySelector('.list');
+const listContainer = document.querySelector('.list div');
 const clearBtn = document.querySelector('#clear');
 const todoFormSubmitBtn = document.querySelector('#todo-form + img');
 
 let tasks;
+let dragTask;
 
 const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
@@ -31,9 +33,10 @@ const taskClickHandler = (e) => {
     e.preventDefault();
     const newDesc = inputDesc.value;
 
-    tasks = newDesc.trim() === ''
-      ? myTodos.removeTask(+currTask.id, tasks)
-      : myTodos.updateTask(+currTask.id, newDesc, tasks);
+    tasks =
+      newDesc.trim() === ''
+        ? myTodos.removeTask(+currTask.id, tasks)
+        : myTodos.updateTask(+currTask.id, newDesc, tasks);
 
     view.focusUpdate(currTask, 'blur');
     view.renderTasks(tasks);
@@ -98,4 +101,24 @@ clearBtn.addEventListener('click', () => {
   tasks = myTodos.deleteTasks(tasks);
   view.renderTasks(tasks);
   storage.saveTasks(tasks);
+});
+
+listContainer.addEventListener('dragstart', (e) => {
+  dragTask = e.target.closest('li');
+  //  dragTask.dispatchEvent({DragEvent: dragstart});
+  dragTask.classList.add('dragging');
+});
+
+listContainer.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const dragPosition = e.y;
+  const taskBelow = getTaskBelow(dragPosition);
+  if (!taskBelow) {
+    return listContainer.appendChild(dragTask);
+  }
+  return listContainer.insertBefore(dragTask, taskBelow);
+});
+
+listContainer.addEventListener('dragend', (e) => {
+  dragTask.classList.remove('dragging');
 });
