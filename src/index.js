@@ -34,10 +34,9 @@ const taskClickHandler = (e) => {
     e.preventDefault();
     const newDesc = inputDesc.value;
 
-    tasks =
-      newDesc.trim() === ''
-        ? myTodos.removeTask(+currTask.id, tasks)
-        : myTodos.updateTask(+currTask.id, newDesc, tasks);
+    tasks = newDesc.trim() === ''
+      ? myTodos.removeTask(+currTask.id, tasks)
+      : myTodos.updateTask(+currTask.id, newDesc, tasks);
 
     view.focusUpdate(currTask, 'blur');
     view.renderTasks(tasks);
@@ -126,8 +125,7 @@ listContainer.addEventListener('dragend', () => {
 
 listContainer.addEventListener('drop', () => {
   const droppedTaskId = dragTask.id;
-  const taskBelowId =
-    taskBelow === null ? tasks.length + 1 : taskBelow.id;
+  const taskBelowId = taskBelow === null ? tasks.length + 1 : taskBelow.id;
 
   tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
   storage.saveTasks(tasks);

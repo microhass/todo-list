@@ -13,7 +13,7 @@ export const getTaskBelow = (mousePosition) => {
         ? { task: currTask, offset: currOffset }
         : closestEl;
     },
-    { task: null, offset: Number.NEGATIVE_INFINITY }
+    { task: null, offset: Number.NEGATIVE_INFINITY },
   );
 
   return targetTask.task;
@@ -30,7 +30,7 @@ const orderTasksInAscending = (tasks) => {
 // Dragging from top going down the list
 const reorderTopDown = (id1, id2, tasks) => {
   const newTasks = [...tasks];
-  for (let i = id1; i < id2 - 1; i++) {
+  for (let i = id1; i < id2 - 1; i += 1) {
     newTasks[i].index -= 1;
   }
   newTasks[id1 - 1].index = id2 - 1;
@@ -42,7 +42,7 @@ const reorderTopDown = (id1, id2, tasks) => {
 const reorderBottomUp = (id1, id2, tasks) => {
   const newTasks = [...tasks];
   newTasks[id1 - 1].index = id2;
-  for (let i = id2 - 1; i < id1 - 1; i++) {
+  for (let i = id2 - 1; i < id1 - 1; i += 1) {
     newTasks[i].index += 1;
   }
 
@@ -53,10 +53,9 @@ const reorderBottomUp = (id1, id2, tasks) => {
 export const reorderTasks = (droppedTaskId, taskBelowId, tasks) => {
   // Item was dropped in original position
   if (droppedTaskId === taskBelowId - 1) return tasks;
-  const newTasks =
-    droppedTaskId < taskBelowId
-      ? reorderTopDown(droppedTaskId, taskBelowId, tasks)
-      : reorderBottomUp(droppedTaskId, taskBelowId, tasks);
+  const newTasks = droppedTaskId < taskBelowId
+    ? reorderTopDown(droppedTaskId, taskBelowId, tasks)
+    : reorderBottomUp(droppedTaskId, taskBelowId, tasks);
 
   return newTasks;
 };
