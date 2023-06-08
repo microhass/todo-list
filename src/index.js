@@ -128,6 +128,8 @@ listContainer.addEventListener('drop', () => {
   const droppedTaskId = dragTask.id;
   const taskBelowId =
     taskBelow === null ? tasks.length + 1 : taskBelow.id;
-  // console.log(tasks);
-  dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
+
+  tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
+  storage.saveTasks(tasks);
+  view.renderTasks(tasks);
 });

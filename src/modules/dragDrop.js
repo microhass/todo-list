@@ -19,22 +19,35 @@ export const getTaskBelow = (mousePosition) => {
   return targetTask.task;
 };
 
+const orderTasksInAscending = (tasks) => {
+  const orderedTasks = [];
+  tasks.forEach((task) => {
+    orderedTasks[task.index - 1] = task;
+  });
+  return orderedTasks;
+};
+
+// Dragging from top going down the list
 const reorderTopDown = (id1, id2, tasks) => {
   const newTasks = [...tasks];
   for (let i = id1; i < id2 - 1; i++) {
     newTasks[i].index -= 1;
   }
   newTasks[id1 - 1].index = id2 - 1;
-  return newTasks;
+  const orderedTasks = orderTasksInAscending(newTasks);
+  return orderedTasks;
 };
 
+// Dragging from bottom going up the list
 const reorderBottomUp = (id1, id2, tasks) => {
   const newTasks = [...tasks];
   newTasks[id1 - 1].index = id2;
   for (let i = id2 - 1; i < id1 - 1; i++) {
     newTasks[i].index += 1;
   }
-  return newTasks;
+
+  const orderedTasks = orderTasksInAscending(newTasks);
+  return orderedTasks;
 };
 
 export const reorderTasks = (droppedTaskId, taskBelowId, tasks) => {
