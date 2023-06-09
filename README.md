@@ -109,7 +109,7 @@ That's it! With these simple steps, you should be able to get up and running wit
 
 To use this project, simply visit the following link: https://github.com/microhass/todo-list
 
-- **Open the <a href="https://microhass.github.io/todo-list/">project 🚀</a> in your web browser.**
+- **Open the <a href="https://microhass.github.io/todo-list/dist">project 🚀</a> in your web browser.**
 
 - **Use the provided form to add books to the list.**
 
