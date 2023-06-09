@@ -132,8 +132,7 @@ listContainer.addEventListener('dragend', () => {
 
 listContainer.addEventListener('drop', () => {
   const droppedTaskId = dragTask.id;
-  const taskBelowId =
-    taskBelow === null ? tasks.length + 1 : taskBelow.id;
+  const taskBelowId = taskBelow === null ? tasks.length + 1 : taskBelow.id;
 
   tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
   view.notify('success', 'Todos reordered');

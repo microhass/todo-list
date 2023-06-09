@@ -64,8 +64,20 @@ img {
   cursor: pointer;
 }
 
+.task img {
+  cursor: move;
+}
+
+img:hover {
+  filter: brightness(0) invert(1);
+}
+
 .title .themer img {
   width: 30px;
+}
+
+.light-mode img:hover {
+  filter: brightness(0);
 }
 
 .themer #dark {
@@ -131,18 +143,6 @@ input::placeholder {
   color: inherit;
   opacity: 1;
   font-style: italic;
-}
-
-img:hover {
-  filter: brightness(0) invert(1);
-}
-
-.light-mode img:hover {
-  filter: brightness(0);
-}
-
-.task img {
-  cursor: move;
 }
 
 #clear {
