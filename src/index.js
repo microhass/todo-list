@@ -2,6 +2,7 @@ import * as view from './modules/view.js';
 import * as myTodos from './modules/crud.js';
 import * as storage from './modules/storage.js';
 import * as dragDrop from './modules/dragDrop.js';
+import './modules/themer.js';
 import './style.css';
 
 const todoForm = document.querySelector('#todo-form');
@@ -34,9 +35,10 @@ const taskClickHandler = (e) => {
     e.preventDefault();
     const newDesc = inputDesc.value;
 
-    tasks = newDesc.trim() === ''
-      ? myTodos.removeTask(+currTask.id, tasks)
-      : myTodos.updateTask(+currTask.id, newDesc, tasks);
+    tasks =
+      newDesc.trim() === ''
+        ? myTodos.removeTask(+currTask.id, tasks)
+        : myTodos.updateTask(+currTask.id, newDesc, tasks);
 
     view.focusUpdate(currTask, 'blur');
     view.renderTasks(tasks);
@@ -105,7 +107,6 @@ clearBtn.addEventListener('click', () => {
 
 listContainer.addEventListener('dragstart', (e) => {
   dragTask = e.target.closest('li');
-  //  dragTask.dispatchEvent({DragEvent: dragstart});
   dragTask.classList.add('dragging');
 });
 
@@ -125,7 +126,8 @@ listContainer.addEventListener('dragend', () => {
 
 listContainer.addEventListener('drop', () => {
   const droppedTaskId = dragTask.id;
-  const taskBelowId = taskBelow === null ? tasks.length + 1 : taskBelow.id;
+  const taskBelowId =
+    taskBelow === null ? tasks.length + 1 : taskBelow.id;
 
   tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
   storage.saveTasks(tasks);
