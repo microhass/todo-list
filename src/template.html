@@ -16,11 +16,17 @@
     <main>
       <div class="title">
         <h1>Today's To Do</h1>
+        <div class="themer">
+          <img src=<%=require("./../images/light.png")%> alt="Switch
+          to light theme" title="Switch to light theme" id='light' />
+          <img src=<%=require("./../images/dark.png")%> alt="Switch to
+          light theme" title="Switch to dark theme" id='dark' />
+        </div>
         <img src= <%=require("./../images/refresh.svg")%>
         alt="refresh" />
       </div>
       <ul class="list">
-        <li>
+        <li draggable="true">
           <form id="todo-form">
             <input
               type="text"
@@ -35,6 +41,9 @@
         <div></div>
       </ul>
       <button id="clear" type="button">Clear all completed</button>
+      <div class="notif-container">
+        <div class="notification">notify</div>
+      </div>
     </main>
   </body>
 </html>

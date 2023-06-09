@@ -1,13 +1,14 @@
 import dragIcon from '../../images/icon.png';
 import trashIcon from '../../images/trash.svg';
 
+const notifier = document.querySelector('.notification');
 const taskList = document.querySelector('.list div');
 
 export const renderTasks = (tasks) => {
   const tasksMarkup = tasks
     .map(
       (task) => `
-  <li class='task' id=${task.index}>
+  <li class='task' id=${task.index} draggable="true">
     <input type="checkbox" ${
   task.completed && 'checked'
 } name="check" id="check" />
@@ -53,4 +54,13 @@ export const focusUpdate = (currTask, state) => {
     focusIcon.src = dragIcon;
     focusIcon.style.cursor = 'move';
   }
+};
+
+export const notify = (type, message) => {
+  notifier.textContent = message;
+  notifier.style.backgroundColor = type === 'danger' ? 'red' : 'green';
+  notifier.classList.add('show-notification');
+  setTimeout(() => {
+    notifier.classList.remove('show-notification');
+  }, 3000);
 };

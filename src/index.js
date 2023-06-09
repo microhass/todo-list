@@ -1,19 +1,24 @@
 import * as view from './modules/view.js';
 import * as myTodos from './modules/crud.js';
 import * as storage from './modules/storage.js';
+import * as dragDrop from './modules/dragDrop.js';
+import './modules/themer.js';
 import './style.css';
 
 const todoForm = document.querySelector('#todo-form');
-const listContainer = document.querySelector('.list');
+const listContainer = document.querySelector('.list div');
 const clearBtn = document.querySelector('#clear');
 const todoFormSubmitBtn = document.querySelector('#todo-form + img');
 
 let tasks;
+let dragTask;
+let taskBelow;
 
 const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
   if (newTodo.value.trim() === '') return;
   tasks = myTodos.createTask(newTodo.value, tasks);
+  view.notify('success', 'Todo added successfully!');
   view.renderTasks(tasks);
   view.clearField(newTodo);
   storage.saveTasks(tasks);
@@ -31,9 +36,13 @@ const taskClickHandler = (e) => {
     e.preventDefault();
     const newDesc = inputDesc.value;
 
-    tasks = newDesc.trim() === ''
-      ? myTodos.removeTask(+currTask.id, tasks)
-      : myTodos.updateTask(+currTask.id, newDesc, tasks);
+    if (newDesc.trim() === '') {
+      tasks = myTodos.removeTask(+currTask.id, tasks);
+      view.notify('danger', 'Todo removed successfully!');
+    } else {
+      tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+      view.notify('success', 'Todo updated successfully!');
+    }
 
     view.focusUpdate(currTask, 'blur');
     view.renderTasks(tasks);
@@ -88,6 +97,7 @@ listContainer.addEventListener('click', (e) => {
     const currTask = e.target.closest('li');
     tasks = myTodos.removeTask(+currTask.id, tasks);
     view.focusUpdate(currTask, 'blur');
+    view.notify('danger', 'Todo deleted successfully!');
     view.renderTasks(tasks);
     storage.saveTasks(tasks);
   }
@@ -96,6 +106,36 @@ listContainer.addEventListener('click', (e) => {
 // Clear completed tasks
 clearBtn.addEventListener('click', () => {
   tasks = myTodos.deleteTasks(tasks);
+  view.notify('success', 'Cleared completed todos!');
+  view.renderTasks(tasks);
+  storage.saveTasks(tasks);
+});
+
+listContainer.addEventListener('dragstart', (e) => {
+  dragTask = e.target.closest('li');
+  dragTask.classList.add('dragging');
+});
+
+listContainer.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const dragPosition = e.y;
+  taskBelow = dragDrop.getTaskBelow(dragPosition);
+
+  return !taskBelow
+    ? listContainer.appendChild(dragTask)
+    : listContainer.insertBefore(dragTask, taskBelow);
+});
+
+listContainer.addEventListener('dragend', () => {
+  dragTask.classList.remove('dragging');
+});
+
+listContainer.addEventListener('drop', () => {
+  const droppedTaskId = dragTask.id;
+  const taskBelowId = taskBelow === null ? tasks.length + 1 : taskBelow.id;
+
+  tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
+  view.notify('success', 'Todos reordered');
   view.renderTasks(tasks);
   storage.saveTasks(tasks);
 });
