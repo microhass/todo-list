@@ -69,11 +69,8 @@ img {
 }
 
 .themer #dark {
+  width: 20px;
   display: none;
-}
-
-#dark:hover {
-  filter: brightness(0);
 }
 
 main ul {
@@ -140,6 +137,10 @@ img:hover {
   filter: brightness(0) invert(1);
 }
 
+.light-mode img:hover {
+  filter: brightness(0);
+}
+
 .task img {
   cursor: move;
 }
@@ -163,4 +164,29 @@ img:hover {
 
 .dragging {
   opacity: 0.4;
+}
+
+.notif-container {
+  position: fixed;
+  top: 18px;
+  left: 30vw;
+  width: 40vw;
+  padding: 0.4rem;
+  text-align: center;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.notification {
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: #fff;
+  transform: scale(0%);
+}
+
+.show-notification {
+  transform: unset;
+  z-index: 10;
 }

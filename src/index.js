@@ -18,6 +18,7 @@ const createTodo = () => {
   const newTodo = todoForm.querySelector('input');
   if (newTodo.value.trim() === '') return;
   tasks = myTodos.createTask(newTodo.value, tasks);
+  view.notify('success', 'Todo added successfully!');
   view.renderTasks(tasks);
   view.clearField(newTodo);
   storage.saveTasks(tasks);
@@ -35,10 +36,13 @@ const taskClickHandler = (e) => {
     e.preventDefault();
     const newDesc = inputDesc.value;
 
-    tasks =
-      newDesc.trim() === ''
-        ? myTodos.removeTask(+currTask.id, tasks)
-        : myTodos.updateTask(+currTask.id, newDesc, tasks);
+    if (newDesc.trim() === '') {
+      tasks = myTodos.removeTask(+currTask.id, tasks);
+      view.notify('danger', 'Todo removed successfully!');
+    } else {
+      tasks = myTodos.updateTask(+currTask.id, newDesc, tasks);
+      view.notify('success', 'Todo updated successfully!');
+    }
 
     view.focusUpdate(currTask, 'blur');
     view.renderTasks(tasks);
@@ -93,6 +97,7 @@ listContainer.addEventListener('click', (e) => {
     const currTask = e.target.closest('li');
     tasks = myTodos.removeTask(+currTask.id, tasks);
     view.focusUpdate(currTask, 'blur');
+    view.notify('danger', 'Todo deleted successfully!');
     view.renderTasks(tasks);
     storage.saveTasks(tasks);
   }
@@ -101,6 +106,7 @@ listContainer.addEventListener('click', (e) => {
 // Clear completed tasks
 clearBtn.addEventListener('click', () => {
   tasks = myTodos.deleteTasks(tasks);
+  view.notify('success', 'Cleared completed todos!');
   view.renderTasks(tasks);
   storage.saveTasks(tasks);
 });
@@ -130,6 +136,7 @@ listContainer.addEventListener('drop', () => {
     taskBelow === null ? tasks.length + 1 : taskBelow.id;
 
   tasks = dragDrop.reorderTasks(+droppedTaskId, +taskBelowId, tasks);
-  storage.saveTasks(tasks);
+  view.notify('success', 'Todos reordered');
   view.renderTasks(tasks);
+  storage.saveTasks(tasks);
 });
