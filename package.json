@@ -4,7 +4,7 @@
   "description": "A todo list project for task management",
   "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "webpack",
     "watch": "webpack --watch",
     "start": "webpack serve"
@@ -12,6 +12,7 @@
   "author": "Hassan Shakur",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "@types/jest": "^29.5.2",
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.8.1",
