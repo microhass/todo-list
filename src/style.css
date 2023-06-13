@@ -169,8 +169,8 @@ input::placeholder {
 .notif-container {
   position: fixed;
   top: 18px;
-  left: 30vw;
-  width: 40vw;
+  left: 20vw;
+  width: 60vw;
   padding: 0.4rem;
   text-align: center;
   background: transparent;
@@ -180,7 +180,7 @@ input::placeholder {
 
 .notification {
   padding: 6px 12px;
-  font-size: 16px;
+  font-size: 12px;
   border-radius: 5px;
   color: #fff;
   transform: scale(0%);
