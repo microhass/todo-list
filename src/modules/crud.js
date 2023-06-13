@@ -26,7 +26,7 @@ export const updateTask = (index, desc, tasks) => {
 };
 
 export const removeTask = (index, tasks) => {
-  // Remove completed
+  // Delete task after clicking trash icon
   const newTasks = [...tasks].filter((task) => task.index !== index);
 
   // Update indices

@@ -3,11 +3,6 @@ class LocalStorageMock {
     this.store = {};
   }
 
-  clear() {
-    this.store = {};
-    console.log('mock');
-  }
-
   getItem(key) {
     return this.store[key] || null;
   }
@@ -15,8 +10,6 @@ class LocalStorageMock {
   setItem(key, value) {
     this.store[key] = String(value);
   }
-
-  removeItem(key) {
-    delete this.store[key];
-  }
 }
+
+export default new LocalStorageMock();
